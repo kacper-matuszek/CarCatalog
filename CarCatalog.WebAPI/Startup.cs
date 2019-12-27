@@ -2,10 +2,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CarCatalog.Database;
+using CarCatalog.Database.Entities;
+using CarCatalog.Service.Repositories.Interfaces;
+using CarCatalog.Service.Repositories.Models;
+using CarCatalog.Utils.Registers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -25,7 +31,11 @@ namespace CarCatalog.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddDbContext<CarCatalogContext>(opt =>
+                opt.UseSqlServer(Configuration.GetConnectionString("CarCatalogContext")))
+                .RegisterAutomapper()
+                .RegisterRepositories()
+                .AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,7 +45,7 @@ namespace CarCatalog.WebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
