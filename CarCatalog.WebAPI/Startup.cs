@@ -4,9 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using CarCatalog.Database;
 using CarCatalog.Database.Entities;
+using CarCatalog.Service.Messages.Request;
 using CarCatalog.Service.Repositories.Interfaces;
 using CarCatalog.Service.Repositories.Models;
 using CarCatalog.Utils.Registers;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -35,7 +37,8 @@ namespace CarCatalog.WebAPI
                 opt.UseSqlServer(Configuration.GetConnectionString("CarCatalogContext")))
                 .RegisterAutomapper()
                 .RegisterRepositories()
-                .AddControllers();
+                .AddMvc()
+                .RegisterValidators();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

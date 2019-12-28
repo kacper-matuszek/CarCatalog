@@ -12,9 +12,9 @@ namespace CarCatalog.Service.Messages.Request
         public string Avatar { get; set; }
     }
 
-    public class CreateUserRequestValidation : BusinessObjectValidator<UserRequest>
+    public class UserRequestValidator : BusinessObjectValidator<UserRequest>
     {
-        public CreateUserRequestValidation()
+        public UserRequestValidator()
         {
             RuleFor(x => x.UserName).NotEmpty().Length(3, 20);
         }

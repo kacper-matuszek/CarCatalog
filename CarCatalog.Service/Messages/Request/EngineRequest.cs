@@ -20,9 +20,9 @@ namespace CarCatalog.Service.Messages.Request
         public bool Turbo { get; set; }
     }
 
-    public class CreateEngineRequestValidator : BusinessObjectValidator<EngineRequest>
+    public class EngineRequestValidator : BusinessObjectValidator<EngineRequest>
     {
-        public CreateEngineRequestValidator()
+        public EngineRequestValidator()
         {
             RuleFor(c => c.Code).NotNull();
             RuleFor(c => c.HorsePower).NotEmpty();

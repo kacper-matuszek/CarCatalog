@@ -14,6 +14,7 @@ namespace CarCatalog.Service.Repositories.Base.Business
 {
     public abstract class BusinessRepository<C, T, U> : IBusinessRepository<T, U> where T : BusinessObject where U : BusinessObject where C : Entity
     {
+        private const string CreateObject = "Create";
         private readonly RepositoryBase<C> _repository;
         private readonly IMapper _mapper;
         protected BusinessRepository(RepositoryBase<C> repository, IMapper mapper)
@@ -24,7 +25,7 @@ namespace CarCatalog.Service.Repositories.Base.Business
 
         public virtual async Task<Guid> Create(U request)
         {
-            var entity = _mapper.Map<C>(request, opt => opt.Items["Create"] = true);
+            var entity = _mapper.Map<C>(request, opt => opt.Items[CreateObject] = true);
             return await _repository.Insert(entity);
         }
 

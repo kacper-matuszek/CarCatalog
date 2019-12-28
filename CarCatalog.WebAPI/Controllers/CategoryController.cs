@@ -47,6 +47,9 @@ namespace CarCatalog.WebAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Guid>> Post([FromBody] CategoryRequest categoryRequest)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(categoryRequest);
+
             try
             {
                 var result = await _repository.Create(categoryRequest);

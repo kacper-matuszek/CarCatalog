@@ -26,9 +26,9 @@ namespace CarCatalog.Service.Messages.Request
         public EngineRequest Engine { get; set; }
     }
 
-    public class CreateCarRequestValidator : BusinessObjectValidator<CarRequest>
+    public class CarRequestValidator : BusinessObjectValidator<CarRequest>
     {
-        public CreateCarRequestValidator()
+        public CarRequestValidator()
         {
             RuleFor(c => c.VIN).NotEmpty();
             RuleFor(c => c.Manufacturer).NotEmpty();

@@ -13,9 +13,9 @@ namespace CarCatalog.Service.Messages.Request
         public UserRequest User { get; set; }
     }
 
-    public class CreateCatalogRequestValidator : BusinessObjectValidator<CatalogRequest>
+    public class CatalogRequestValidator : BusinessObjectValidator<CatalogRequest>
     {
-        public CreateCatalogRequestValidator()
+        public CatalogRequestValidator()
         {
             RuleFor(x => x.CreatedDate).NotEmpty();
             RuleFor(x => x.Name).NotEmpty().Length(5, 20);

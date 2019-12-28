@@ -12,9 +12,9 @@ namespace CarCatalog.Service.Messages.Request
         public string PictureName { get; set; }
     }
 
-    public class CreateCategoryRequestValidator : BusinessObjectValidator<CategoryRequest>
+    public class CategoryRequestValidator : BusinessObjectValidator<CategoryRequest>
     {
-        public CreateCategoryRequestValidator()
+        public CategoryRequestValidator()
         {
             RuleFor(x => x.Name).NotEmpty();
         }

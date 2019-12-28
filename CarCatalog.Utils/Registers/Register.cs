@@ -8,6 +8,7 @@ using CarCatalog.Service.Repositories.Base.Business;
 using CarCatalog.Service.Repositories.Interfaces;
 using CarCatalog.Service.Repositories.Models;
 using CarCatalog.Utils.Registers.Profiles;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -34,6 +35,18 @@ namespace CarCatalog.Utils.Registers
                 .AddScoped<BusinessRepository<User, UserResponse, UserRequest>, UserRepository>();
 
             return services;
+        }
+
+        public static IMvcBuilder RegisterValidators(this IMvcBuilder mvcBuilder)
+        {
+            mvcBuilder
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CategoryRequestValidator>())
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CatalogRequestValidator>())
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CarRequestValidator>())
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<EngineRequestValidator>())
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UserRequestValidator>());
+
+            return mvcBuilder;
         }
 
         #region Automapper
