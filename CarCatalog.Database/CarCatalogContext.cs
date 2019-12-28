@@ -1,4 +1,5 @@
-﻿using CarCatalog.Database.Entities;
+﻿using CarCatalog.Database.Base;
+using CarCatalog.Database.Entities;
 using JetBrains.Annotations;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,13 +12,12 @@ namespace CarCatalog.Database
 {
     public class CarCatalogContext : DbContext
     {
-        static int instance = 0;
         public CarCatalogContext([NotNullAttribute] DbContextOptions options) : base(options)
         {
-            Debug.WriteLine(instance++);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Car>(en =>
             {
                 en.HasOne(c => c.Engine)
@@ -36,7 +36,6 @@ namespace CarCatalog.Database
                 en.HasOne(c => c.User)
                 .WithMany(u => u.Catalogs)
                 .HasForeignKey(c => c.UserId));
-
             modelBuilder.Entity<User>().HasData(CarCatalogInitializer.SeedUsers());
             modelBuilder.Entity<Catalog>().HasData(CarCatalogInitializer.SeedCatalogs());
             modelBuilder.Entity<Category>().HasData(CarCatalogInitializer.SeedCategories());

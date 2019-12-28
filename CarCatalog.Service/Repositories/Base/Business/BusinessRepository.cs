@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using CarCatalog.Database.Base;
+using CarCatalog.Service.Messages.Base;
 using CarCatalog.Service.Repositories.Base.Business.Helpers;
 using CarCatalog.Service.Repositories.Interfaces.Business;
 using System;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace CarCatalog.Service.Repositories.Base.Business
 {
-    public abstract class BusinessRepository<C, T, U> : IBusinessRepository<T, U> where T : class where U : class where C : Entity
+    public abstract class BusinessRepository<C, T, U> : IBusinessRepository<T, U> where T : BusinessObject where U : BusinessObject where C : Entity
     {
         private readonly RepositoryBase<C> _repository;
         private readonly IMapper _mapper;
@@ -23,7 +24,7 @@ namespace CarCatalog.Service.Repositories.Base.Business
 
         public virtual async Task<Guid> Create(U request)
         {
-            var entity = _mapper.Map<C>(request);
+            var entity = _mapper.Map<C>(request, opt => opt.Items["Create"] = true);
             return await _repository.Insert(entity);
         }
 

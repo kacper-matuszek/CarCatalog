@@ -10,11 +10,13 @@ namespace CarCatalog.Utils.Registers.Profiles
 {
     public class CategoryMessageProfile : Profile
     {
-        public CategoryMessageProfile()
+        public CategoryMessageProfile() : base()
         {
             CreateMap<Category, CategoryResponse>();
             CreateMap<CategoryRequest, Category>()
-                .ForMember(c => c.Cars, r => r.Ignore());
+                .ForMember(c => c.Cars, r => r.Ignore())
+                .ForMember(e => e.Id, b => b.Condition(
+                    (src, dest, srcValue, destValue, c) => !c.Options.Items.ContainsKey("Create"))); ;
         }
     }
 }

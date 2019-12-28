@@ -15,7 +15,9 @@ namespace CarCatalog.Utils.Registers.Profiles
             CreateMap<Catalog, CatalogResponse>();
             CreateMap<CatalogRequest, Catalog>()
                 .ForMember(c => c.User, r => r.Ignore())
-                .ForMember(c => c.Cars, r => r.Ignore());
+                .ForMember(c => c.Cars, r => r.Ignore())
+                .ForMember(e => e.Id, b => b.Condition(
+                    (src, dest, srcValue, destValue, c) => !c.Options.Items.ContainsKey("Create"))); ;
         }
     }
 }
