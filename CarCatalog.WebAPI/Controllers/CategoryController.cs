@@ -7,6 +7,7 @@ using CarCatalog.Service.Messages;
 using CarCatalog.Service.Messages.Request;
 using CarCatalog.Service.Messages.Response;
 using CarCatalog.Service.Repositories.Base.Business;
+using CarCatalog.Service.Repositories.Models;
 using CarCatalog.WebAPI.Controllers.Base;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
@@ -15,9 +16,9 @@ namespace CarCatalog.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController : BusinessBaseController<Category, CategoryResponse, CategoryRequest>
+    public class CategoryController : BusinessBaseController<Category, CategoryRepository, CategoryResponse, CategoryRequest>
     {
-        public CategoryController(BusinessRepository<Category, CategoryResponse, CategoryRequest> repository)
+        public CategoryController(CategoryRepository repository)
             : base(repository)
         {
         }

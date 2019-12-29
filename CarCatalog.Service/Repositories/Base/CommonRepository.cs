@@ -7,9 +7,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CarCatalog.Service.Repositories.Base
 {
-    public class DatabaseRepository<T> : RepositoryBase<T> where T : Entity
+    public class CommonRepository<T, Context> : RepositoryBase<T, Context>
+        where T : Entity
+        where Context : DbContext
     {
-        public DatabaseRepository(CarCatalogContext repositoryContext) : base(repositoryContext)
+        public CommonRepository(Context repositoryContext) : base(repositoryContext)
         {
         }
     }

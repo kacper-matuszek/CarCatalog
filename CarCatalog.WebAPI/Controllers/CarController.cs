@@ -3,6 +3,7 @@ using CarCatalog.Service.Messages;
 using CarCatalog.Service.Messages.Request;
 using CarCatalog.Service.Messages.Response;
 using CarCatalog.Service.Repositories.Base.Business;
+using CarCatalog.Service.Repositories.Models;
 using CarCatalog.WebAPI.Controllers.Base;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
@@ -15,10 +16,10 @@ namespace CarCatalog.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CarController : BusinessBaseController<Car, CarResponse, CarRequest>
+    public class CarController : BusinessBaseController<Car, CarRepository, CarResponse, CarRequest>
     {
 
-        public CarController(BusinessRepository<Car, CarResponse, CarRequest> repository)
+        public CarController(CarRepository repository)
             : base(repository)
         {
         }
@@ -64,7 +65,7 @@ namespace CarCatalog.WebAPI.Controllers
         {
             try
             {
-                var cars = await _repository.Get(c => c.Manufacturer.ToLowerInvariant() == manufacturer.ToLowerInvariant());
+                var cars = await base.Get(c => c.Manufacturer.ToLowerInvariant() == manufacturer.ToLowerInvariant());
 
                 if (cars == null)
                     return NotFound();

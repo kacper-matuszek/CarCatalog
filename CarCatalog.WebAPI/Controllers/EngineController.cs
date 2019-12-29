@@ -6,6 +6,7 @@ using CarCatalog.Database.Entities;
 using CarCatalog.Service.Messages.Request;
 using CarCatalog.Service.Messages.Response;
 using CarCatalog.Service.Repositories.Base.Business;
+using CarCatalog.Service.Repositories.Models;
 using CarCatalog.WebAPI.Controllers.Base;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,9 +15,9 @@ namespace CarCatalog.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class EngineController : BusinessBaseController<Engine, EngineResponse, EngineRequest>
+    public class EngineController : BusinessBaseController<Engine, EngineRepository, EngineResponse, EngineRequest>
     {
-        public EngineController(BusinessRepository<Engine, EngineResponse, EngineRequest> repository)
+        public EngineController(EngineRepository repository)
             : base(repository)
         {
         }

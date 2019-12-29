@@ -23,11 +23,11 @@ namespace CarCatalog.Utils.Registers
         public static IServiceCollection RegisterRepositories(this IServiceCollection services)
         {
             services
-                .AddScoped<RepositoryBase<Car>, DatabaseRepository<Car>>()
-                .AddScoped<RepositoryBase<Catalog>, DatabaseRepository<Catalog>>()
-                .AddScoped<RepositoryBase<Category>, DatabaseRepository<Category>>()
-                .AddScoped<RepositoryBase<Engine>, DatabaseRepository<Engine>>()
-                .AddScoped<RepositoryBase<User>, DatabaseRepository<User>>()
+                .AddScoped<RepositoryBase<Car>, CommonRepository<Car>>()
+                .AddScoped<RepositoryBase<Catalog>, CommonRepository<Catalog>>()
+                .AddScoped<RepositoryBase<Category>, CommonRepository<Category>>()
+                .AddScoped<RepositoryBase<Engine>, CommonRepository<Engine>>()
+                .AddScoped<RepositoryBase<User>, CommonRepository<User>>()
                 .AddScoped<BusinessRepository<Car, CarResponse, CarRequest>, CarRepository>()
                 .AddScoped<BusinessRepository<Catalog, CatalogResponse, CatalogRequest>, CatalogRepository>()
                 .AddScoped<BusinessRepository<Category, CategoryResponse, CategoryRequest>, CategoryRepository>()

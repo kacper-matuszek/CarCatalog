@@ -11,27 +11,34 @@ using System.Threading.Tasks;
 
 namespace CarCatalog.Service.Repositories.Base
 {
-    public abstract class RepositoryBase<T> : IDataRepository<T> where T : Entity
+    public abstract class RepositoryBase<T,Context> : IDataRepository<T> 
+        where T : Entity
+        where Context : DbContext
     {
-        private readonly DbContext _repositoryContext;
-        protected DbContext RepositoryContext { get => _repositoryContext; }
-        protected RepositoryBase(DbContext repositoryContext)
+        private readonly Context _repositoryContext;
+        protected Context Repository { get => _repositoryContext; }
+        protected RepositoryBase(Context repositoryContext)
         {
             _repositoryContext = repositoryContext ?? throw new ArgumentNullException(nameof(repositoryContext));
         }
 
-        public async Task Delete(T value) 
+        public virtual async Task Delete(Guid id) 
         {
-            _repositoryContext.Set<T>().Remove(value);
-            await _repositoryContext.SaveChangesAsync();
+            var entity = await _repositoryContext.Set<T>().FindAsync(id);
+
+            if (entity != null)
+            {
+                _repositoryContext.Set<T>().Remove(entity);
+                await _repositoryContext.SaveChangesAsync();
+            }
         }
 
-        public async Task<IEnumerable<T>> GetAll()
+        public virtual async Task<IEnumerable<T>> Get()
         {
             return await _repositoryContext.Set<T>().Where(x => !x.IsDeleted).ToListAsync();
         }
 
-        public async Task<IEnumerable<T>> GetByCondition(Expression<Func<T, bool>> expression)
+        public virtual async Task<IEnumerable<T>> GetByCondition(Expression<Func<T, bool>> expression)
         {
             return await _repositoryContext.Set<T>()
                                            .Where(e => !e.IsDeleted)
@@ -39,15 +46,15 @@ namespace CarCatalog.Service.Repositories.Base
                                            .ToListAsync();
         }
 
-        public async Task<Guid> Insert(T value)
+        public virtual async Task<T> Insert(T value)
         {
             _repositoryContext.Set<T>().Add(value);
             await _repositoryContext.SaveChangesAsync();
 
-            return value.Id;
+            return value;
         }
 
-        public async Task Update(T value)
+        public virtual async Task Update(T value)
         {
             _repositoryContext.Set<T>().Update(value);
             await _repositoryContext.SaveChangesAsync();

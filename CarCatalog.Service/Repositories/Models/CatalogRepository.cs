@@ -13,9 +13,9 @@ using System.Text;
 
 namespace CarCatalog.Service.Repositories.Models
 {
-    public class CatalogRepository : BusinessRepository<Catalog, CatalogResponse, CatalogRequest>
+    public class CatalogRepository : BusinessRepository<Catalog, CarCatalogContext, CatalogResponse, CatalogRequest>
     {
-        public CatalogRepository(RepositoryBase<Catalog> repository, IMapper mapper) : base(repository, mapper)
+        public CatalogRepository(CarCatalogContext context) : base(context)
         {
         }
     }

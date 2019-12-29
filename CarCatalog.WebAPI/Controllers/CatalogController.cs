@@ -18,9 +18,9 @@ namespace CarCatalog.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CatalogController : BusinessBaseController<Catalog, CatalogResponse, CatalogRequest>
+    public class CatalogController : BusinessBaseController<Catalog, CatalogRepository, CatalogResponse, CatalogRequest>
     {
-        public CatalogController(BusinessRepository<Catalog, CatalogResponse, CatalogRequest> repository, IServiceProvider provider)
+        public CatalogController(CatalogRepository repository)
             : base(repository)
         {
         }

@@ -13,9 +13,9 @@ using System.Text;
 
 namespace CarCatalog.Service.Repositories.Models
 {
-    public class UserRepository : BusinessRepository<User, UserResponse, UserRequest>
+    public class UserRepository : BusinessRepository<User, CarCatalogContext, UserResponse, UserRequest>
     {
-        public UserRepository(RepositoryBase<User> repository, IMapper mapper) : base(repository, mapper)
+        public UserRepository(CarCatalogContext context) : base(context)
         {
         }
     }

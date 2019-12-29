@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
 using CarCatalog.Database.Base;
 using CarCatalog.Service.Messages.Base;
-using CarCatalog.Service.Repositories.Base.Business.Helpers;
 using CarCatalog.Service.Repositories.Interfaces.Business;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,18 +12,23 @@ using System.Threading.Tasks;
 
 namespace CarCatalog.Service.Repositories.Base.Business
 {
-    public abstract class BusinessRepository<C, Rp, Rq> : IBusinessRepository<Rp, Rq> where Rp : BusinessObject where Rq : BusinessObject where C : Entity
+    public abstract class BusinessRepository<C,Context, Rp, Rq> : IBusinessRepository<Rp, Rq> 
+        where Rp : BusinessObject 
+        where Rq : BusinessObject 
+        where C : Entity
+        where Context : DbContext
     {
         private const string CreateObject = "Create";
-        private readonly RepositoryBase<C> _repository;
+        private IServiceProvider _serviceProvider;
+        private RepositoryBase<C, Context> _repository;
         private readonly IMapper _mapper;
-        protected BusinessRepository(RepositoryBase<C> repository, IMapper mapper)
+        
+        protected BusinessRepository(Context context)
         {
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+            _repository = (CommonRepository<C, Context>)_serviceProvider.GetService(typeof(CommonRepository<C, Context>));
         }
 
-        public virtual async Task<Rp> Create(Rq request)
+        public virtual async Task<Rp> Insert(Rq request)
         {
             var entity = _mapper.Map<C>(request, opt => opt.Items[CreateObject] = true);
             await _repository.Insert(entity);
@@ -33,13 +38,13 @@ namespace CarCatalog.Service.Repositories.Base.Business
 
         public virtual async Task Delete(Guid id)
         {
-            var entityToDel = await _repository.GetByCondition(c => c.Id == id);
-            await _repository.Delete(entityToDel.FirstOrDefault());
+            await _repository.Delete(id);
         }
 
         public virtual async Task<IEnumerable<Rp>> Get()
         {
-             return await Task.FromResult(MappingFromEntity(await _repository.GetAll()));
+            var businessObjects = _mapper.Map<IEnumerable<Rp>>(await _repository.Get());
+             return await Task.FromResult(businessObjects);
         }
 
         public virtual async Task<Rp> Get(Guid id)
@@ -63,17 +68,6 @@ namespace CarCatalog.Service.Repositories.Base.Business
         {
             var entity = _mapper.Map<C>(request);
             await _repository.Update(entity);
-        }
-
-        private IEnumerable<Rp> MappingFromEntity(IEnumerable<C> entities)
-        {
-            var response = new List<Rp>();
-            entities.ToList().ForEach(e =>
-            {
-                response.Add(_mapper.Map<Rp>(e));
-            });
-
-            return response;
         }
     }
 }

@@ -14,9 +14,9 @@ using System.Threading.Tasks;
 
 namespace CarCatalog.Service.Repositories.Models
 {
-    public class CategoryRepository : BusinessRepository<Category, CategoryResponse, CategoryRequest>
+    public class CategoryRepository : BusinessRepository<Category, CarCatalogContext, CategoryResponse, CategoryRequest>
     {
-        public CategoryRepository(RepositoryBase<Category> repository, IMapper mapper) : base(repository, mapper)
+        public CategoryRepository(CarCatalogContext context) : base(context)
         {
         }
     }

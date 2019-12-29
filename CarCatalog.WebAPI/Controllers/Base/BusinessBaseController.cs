@@ -6,6 +6,7 @@ using CarCatalog.Database.Base;
 using CarCatalog.Service.Messages;
 using CarCatalog.Service.Messages.Base;
 using CarCatalog.Service.Repositories.Base.Business;
+using CarCatalog.Service.Repositories.Interfaces.Business;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,11 +15,15 @@ namespace CarCatalog.WebAPI.Controllers.Base
 {
     [Route("api/[controller]")]
     [ApiController]
-    public abstract class BusinessBaseController<C, Rp, Rq> : ControllerBase where C : Entity where Rp : BusinessObject where Rq : BusinessObject
+    public abstract class BusinessBaseController<C, Repository, Rp, Rq> : ControllerBase 
+        where C : Entity
+        where Repository : IBusinessRepository<Rp, Rq>
+        where Rp : BusinessObject
+        where Rq : BusinessObject
     {
-        protected readonly BusinessRepository<C, Rp, Rq> _repository;
+        private readonly IBusinessRepository<Rp, Rq> _repository;
 
-        protected BusinessBaseController(BusinessRepository<C, Rp, Rq> repository)
+        protected BusinessBaseController(IBusinessRepository<Rp, Rq> repository)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         }

@@ -13,9 +13,9 @@ using System.Text;
 
 namespace CarCatalog.Service.Repositories.Models
 {
-    public class EngineRepository : BusinessRepository<Engine, EngineResponse, EngineRequest>
+    public class EngineRepository : BusinessRepository<Engine, CarCatalogContext, EngineResponse, EngineRequest>
     {
-        public EngineRepository(RepositoryBase<Engine> repository, IMapper mapper) : base(repository, mapper)
+        public EngineRepository(CarCatalogContext context) : base(context)
         {
         }
     }
