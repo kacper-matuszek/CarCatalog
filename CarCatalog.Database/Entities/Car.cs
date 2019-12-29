@@ -9,7 +9,7 @@ namespace CarCatalog.Database.Entities
     {
         public Guid EngineId { get; set; }
         public Guid CategoryId { get; set; }
-        public Guid CatalogId { get; set; }
+        public Guid? CatalogId { get; set; }
         public string VIN { get; set; }
         public string Manufacturer { get; set; }
         public string Model { get; set; }

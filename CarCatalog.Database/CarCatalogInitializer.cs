@@ -49,46 +49,46 @@ namespace CarCatalog.Database
             var engines = new List<Engine>
             {
                 /* Petrol*/
-                new Engine() { Code = 25, Capacity = 1.0f,  HorsePower = 95, KiloWat = 70,
+                new Engine() { Code = "25", Capacity = 1.0f,  HorsePower = 95, KiloWat = 70,
                 Turbo = true, AmountCylinders = 3, Fuel = EngineFuel.Petrol},
-                new Engine() { Code = 30, Capacity = 1.0f,  HorsePower = 116, KiloWat = 85,
+                new Engine() { Code = "30", Capacity = 1.0f,  HorsePower = 116, KiloWat = 85,
                 Turbo = true, AmountCylinders = 3, Fuel = EngineFuel.Petrol},
-                new Engine() { Code = 35, Capacity = 1.5f,  HorsePower = 150, KiloWat = 110,
+                new Engine() { Code = "35", Capacity = 1.5f,  HorsePower = 150, KiloWat = 110,
                 Turbo = true, AmountCylinders = 4, Fuel = EngineFuel.Petrol},
-                new Engine() { Code = 40, Capacity = 2.0f,  HorsePower = 200, KiloWat = 147,
+                new Engine() { Code = "40", Capacity = 2.0f,  HorsePower = 200, KiloWat = 147,
                 Turbo = true, AmountCylinders = 4, Fuel = EngineFuel.Petrol},
-                new Engine() { Capacity = 1.4f, HorsePower = 204, KiloWat = 150,
+                new Engine() { Code = "A34", Capacity = 1.4f, HorsePower = 204, KiloWat = 150,
                 Turbo = true, AmountCylinders = 4, Fuel = EngineFuel.Petrol},
-                new Engine() { Capacity = 2.0f,  HorsePower = 300, KiloWat = 221,
+                new Engine() { Code = "40", Capacity = 2.0f,  HorsePower = 300, KiloWat = 221,
                 Turbo = true, AmountCylinders = 4, Fuel = EngineFuel.Petrol},
-                new Engine() { Capacity = 2.5f,  HorsePower = 400, KiloWat = 294,
+                new Engine() { Code = "45", Capacity = 2.5f,  HorsePower = 400, KiloWat = 294,
                 Turbo = true, AmountCylinders = 5, Fuel = EngineFuel.Petrol},
-                new Engine() { Code = 35, Capacity = 2.0f,  HorsePower = 150, KiloWat = 110,
+                new Engine() { Code = "35", Capacity = 2.0f,  HorsePower = 150, KiloWat = 110,
                 Turbo = true, AmountCylinders = 4, Fuel = EngineFuel.Petrol},
-                new Engine() { Code = 40, Capacity = 2.0f,  HorsePower = 190, KiloWat = 140,
+                new Engine() { Code = "40", Capacity = 2.0f,  HorsePower = 190, KiloWat = 140,
                 Turbo = true, AmountCylinders = 4, Fuel = EngineFuel.Petrol},
-                new Engine() { Code = 45, Capacity = 2.0f,  HorsePower = 245, KiloWat = 180,
+                new Engine() { Code = "45", Capacity = 2.0f,  HorsePower = 245, KiloWat = 180,
                 Turbo = true, AmountCylinders = 4, Fuel = EngineFuel.Petrol},
-                new Engine() { Capacity = 3.0f,  HorsePower = 354, KiloWat = 260,
+                new Engine() { Code = "50", Capacity = 3.0f,  HorsePower = 354, KiloWat = 260,
                 Turbo = true, AmountCylinders = 6, Fuel = EngineFuel.Petrol},
-                new Engine() { Capacity = 2.9f,  HorsePower = 450, KiloWat = 331,
+                new Engine() { Code = "F50", Capacity = 2.9f,  HorsePower = 450, KiloWat = 331,
                 Turbo = true, AmountCylinders = 6, Fuel = EngineFuel.Petrol},
-                new Engine() { Code = 55, Capacity = 3.0f,  HorsePower = 340, KiloWat = 250,
+                new Engine() { Code = "55", Capacity = 3.0f,  HorsePower = 340, KiloWat = 250,
                 Turbo = true, AmountCylinders = 6, Fuel = EngineFuel.Petrol},
                 /*Petrol*/
 
                 /*Diesel*/
-                new Engine() { Code = 35, Capacity = 2.0f,  HorsePower = 150, KiloWat = 110,
+                new Engine() { Code = "35", Capacity = 2.0f,  HorsePower = 150, KiloWat = 110,
                 Turbo = true, AmountCylinders = 4, Fuel = EngineFuel.Diesel},
-                new Engine() { Code = 40, Capacity = 2.0f,  HorsePower = 190, KiloWat = 140,
+                new Engine() { Code = "40", Capacity = 2.0f,  HorsePower = 190, KiloWat = 140,
                 Turbo = true, AmountCylinders = 4, Fuel = EngineFuel.Diesel},
-                new Engine() { Code = 40, Capacity = 2.0f,  HorsePower = 204, KiloWat = 150,
+                new Engine() { Code = "40", Capacity = 2.0f,  HorsePower = 204, KiloWat = 150,
                 Turbo = true, AmountCylinders = 4, Fuel = EngineFuel.Diesel },
-                new Engine() { Capacity = 3.0f,  HorsePower = 347, KiloWat = 255,
+                new Engine() { Code = "50", Capacity = 3.0f,  HorsePower = 347, KiloWat = 255,
                 Turbo = true, AmountCylinders = 6, Fuel = EngineFuel.Diesel},
-                new Engine() { Code = 50, Capacity = 3.0f,  HorsePower = 286, KiloWat = 210,
+                new Engine() { Code = "50", Capacity = 3.0f,  HorsePower = 286, KiloWat = 210,
                 Turbo = true, AmountCylinders = 6, Fuel = EngineFuel.Diesel},
-                new Engine() { Code = 45, Capacity = 3.0f,  HorsePower = 231, KiloWat = 170,
+                new Engine() { Code = "45", Capacity = 3.0f,  HorsePower = 231, KiloWat = 170,
                 Turbo = true, AmountCylinders = 6, Fuel = EngineFuel.Diesel}
                 /*Diesel*/
             };
@@ -115,7 +115,7 @@ namespace CarCatalog.Database
         public static User[] SeedUsers()
         {
             var users = new Faker<User>()
-                .RuleFor(u => u.UserName, s => s.Internet.UserName())
+                .RuleFor(u => u.Name, s => s.Internet.UserName())
                 .RuleFor(u => u.Avatar, s => s.Internet.Avatar())
                 .Generate(4);
 

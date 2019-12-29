@@ -34,7 +34,9 @@ namespace CarCatalog.WebAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<CarCatalogContext>(opt =>
-                opt.UseSqlServer(Configuration.GetConnectionString("CarCatalogContext")))
+                opt
+                    .UseLazyLoadingProxies()
+                    .UseSqlServer(Configuration.GetConnectionString("CarCatalogContext")))
                 .RegisterAutomapper()
                 .RegisterRepositories()
                 .AddMvc()

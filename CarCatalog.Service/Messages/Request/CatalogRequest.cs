@@ -17,9 +17,9 @@ namespace CarCatalog.Service.Messages.Request
     {
         public CatalogRequestValidator()
         {
-            RuleFor(x => x.CreatedDate).NotEmpty();
+            RuleFor(x => x.CreatedDate).NotEmpty().LessThanOrEqualTo(DateTime.Now);
             RuleFor(x => x.Name).NotEmpty().Length(5, 20);
-            RuleFor(x => x.User).NotNull();
+            RuleFor(x => x.User).SetValidator(new UserRequestValidator());
         }
     }
 }

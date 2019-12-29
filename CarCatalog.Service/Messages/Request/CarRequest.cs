@@ -21,8 +21,8 @@ namespace CarCatalog.Service.Messages.Request
         public int AmountSeats { get; set; }
         public string OriginCountry { get; set; }
         public string PictureName { get; set; }
-        public CatalogRequest Catalog { get; set; }
-        public CategoryRequest Category { get; set; }
+        public Guid? Catalog { get; set; }
+        public Guid Category { get; set; }
         public EngineRequest Engine { get; set; }
     }
 
@@ -33,9 +33,8 @@ namespace CarCatalog.Service.Messages.Request
             RuleFor(c => c.VIN).NotEmpty();
             RuleFor(c => c.Manufacturer).NotEmpty();
             RuleFor(c => c.Model).NotEmpty();
-            RuleFor(c => c.Engine).NotNull();
-            RuleFor(c => c.Catalog).NotNull();
-            RuleFor(c => c.Category).NotNull();
+            RuleFor(c => c.Engine).SetValidator(new EngineRequestValidator());
+            RuleFor(c => c.Category).NotNull().NotEmpty();
         }
     }
 }

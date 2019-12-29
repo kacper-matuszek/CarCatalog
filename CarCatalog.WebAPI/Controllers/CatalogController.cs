@@ -6,37 +6,36 @@ using CarCatalog.Database.Entities;
 using CarCatalog.Service.Messages;
 using CarCatalog.Service.Messages.Request;
 using CarCatalog.Service.Messages.Response;
+using CarCatalog.Service.Repositories.Base;
 using CarCatalog.Service.Repositories.Base.Business;
+using CarCatalog.Service.Repositories.Models;
 using CarCatalog.WebAPI.Controllers.Base;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CarCatalog.WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoryController : BusinessBaseController<Category, CategoryResponse, CategoryRequest>
+    public class CatalogController : BusinessBaseController<Catalog, CatalogResponse, CatalogRequest>
     {
-        public CategoryController(BusinessRepository<Category, CategoryResponse, CategoryRequest> repository)
+        public CatalogController(BusinessRepository<Catalog, CatalogResponse, CatalogRequest> repository, IServiceProvider provider)
             : base(repository)
         {
         }
 
-        [HttpGet("details/")]
-        public async Task<ActionResult<CategoryResponse>> GetByName(string name)
+        [HttpGet("{userId:guid}")]
+        public async Task<ActionResult<IEnumerable<CatalogResponse>>> GetList(Guid userId)
         {
             try
             {
-                var categories = await _repository.Get(x => x.Name == name);
+                var catalogs = await _repository.Get(x => x.User.Id == userId);
 
-                if (categories != null)
-                    return Ok(categories.SingleOrDefault());
+                if (catalogs == null)
+                    return NotFound();
 
-                return NotFound();
-            }
-            catch(InvalidOperationException)
-            {
-                return BadRequest();
+                return Ok(catalogs);
             }
             catch(Exception)
             {

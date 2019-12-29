@@ -40,11 +40,15 @@ namespace CarCatalog.Utils.Registers
         public static IMvcBuilder RegisterValidators(this IMvcBuilder mvcBuilder)
         {
             mvcBuilder
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CategoryRequestValidator>())
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CatalogRequestValidator>())
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CarRequestValidator>())
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<EngineRequestValidator>())
-                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<UserRequestValidator>());
+                .AddFluentValidation(fv =>
+                {
+                    fv.RegisterValidatorsFromAssemblyContaining<CategoryRequestValidator>();
+                    fv.RegisterValidatorsFromAssemblyContaining<CatalogRequestValidator>();
+                    fv.RegisterValidatorsFromAssemblyContaining<CarRequestValidator>();
+                    fv.RegisterValidatorsFromAssemblyContaining<EngineRequestValidator>();
+                    fv.RegisterValidatorsFromAssemblyContaining<UserRequestValidator>();
+
+                });
 
             return mvcBuilder;
         }

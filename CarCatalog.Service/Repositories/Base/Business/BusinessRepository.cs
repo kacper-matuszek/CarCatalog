@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace CarCatalog.Service.Repositories.Base.Business
 {
-    public abstract class BusinessRepository<C, T, U> : IBusinessRepository<T, U> where T : BusinessObject where U : BusinessObject where C : Entity
+    public abstract class BusinessRepository<C, Rp, Rq> : IBusinessRepository<Rp, Rq> where Rp : BusinessObject where Rq : BusinessObject where C : Entity
     {
         private const string CreateObject = "Create";
         private readonly RepositoryBase<C> _repository;
@@ -23,10 +23,12 @@ namespace CarCatalog.Service.Repositories.Base.Business
             _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
         }
 
-        public virtual async Task<Guid> Create(U request)
+        public virtual async Task<Rp> Create(Rq request)
         {
             var entity = _mapper.Map<C>(request, opt => opt.Items[CreateObject] = true);
-            return await _repository.Insert(entity);
+            await _repository.Insert(entity);
+
+            return _mapper.Map<Rp>(entity);
         }
 
         public virtual async Task Delete(Guid id)
@@ -35,30 +37,40 @@ namespace CarCatalog.Service.Repositories.Base.Business
             await _repository.Delete(entityToDel.FirstOrDefault());
         }
 
-        public virtual async Task<IEnumerable<T>> Get()
+        public virtual async Task<IEnumerable<Rp>> Get()
         {
              return await Task.FromResult(MappingFromEntity(await _repository.GetAll()));
         }
 
-        public virtual async Task<T> Get(Guid id)
+        public virtual async Task<Rp> Get(Guid id)
         {
             var entities = await _repository.GetByCondition(e => e.Id == id);
 
-            return await Task.FromResult(_mapper.Map<T>(entities.SingleOrDefault()));
+            return await Task.FromResult(_mapper.Map<Rp>(entities.SingleOrDefault()));
         }
 
-        public virtual async Task Update(U request)
+        public virtual async Task<IEnumerable<Rp>> Get(Expression<Func<Rq, bool>> expression)
+        {
+            var entityExpression = _mapper.Map<Expression<Func<C, bool>>>(expression);
+            var entities = await _repository.GetByCondition(entityExpression);
+
+            var response = _mapper.Map<IEnumerable<Rp>>(entities);
+
+            return response;
+        }
+
+        public virtual async Task Update(Rq request)
         {
             var entity = _mapper.Map<C>(request);
             await _repository.Update(entity);
         }
 
-        private IEnumerable<T> MappingFromEntity(IEnumerable<C> entities)
+        private IEnumerable<Rp> MappingFromEntity(IEnumerable<C> entities)
         {
-            var response = new List<T>();
+            var response = new List<Rp>();
             entities.ToList().ForEach(e =>
             {
-                response.Add(_mapper.Map<T>(e));
+                response.Add(_mapper.Map<Rp>(e));
             });
 
             return response;

@@ -3,6 +3,7 @@ using CarCatalog.Service.Messages.Base;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace CarCatalog.Service.Messages.Response
 {
@@ -13,8 +14,11 @@ namespace CarCatalog.Service.Messages.Response
         public string Model { get; set; }
         public int Mileage { get; set; }
         public string Color { get; set; }
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public DriveType DriveType { get; set; }
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public GearBox GearBox { get; set; }
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public Database.Entities.Type Type { get; set; }
         public int AmountDoors { get; set; }
         public int AmountSeats { get; set; }

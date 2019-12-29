@@ -28,12 +28,15 @@ namespace CarCatalog.Service.Repositories.Base
 
         public async Task<IEnumerable<T>> GetAll()
         {
-            return await _repositoryContext.Set<T>().ToListAsync();
+            return await _repositoryContext.Set<T>().Where(x => !x.IsDeleted).ToListAsync();
         }
 
         public async Task<IEnumerable<T>> GetByCondition(Expression<Func<T, bool>> expression)
         {
-            return await _repositoryContext.Set<T>().Where(expression).ToListAsync();
+            return await _repositoryContext.Set<T>()
+                                           .Where(e => !e.IsDeleted)
+                                           .Where(expression)
+                                           .ToListAsync();
         }
 
         public async Task<Guid> Insert(T value)

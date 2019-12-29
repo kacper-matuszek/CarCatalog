@@ -7,7 +7,7 @@ namespace CarCatalog.Database.Entities
 {
     public class User : Entity
     {
-        public string UserName { get; set; }
+        public string Name { get; set; }
         public string Avatar { get; set; }
         public virtual ICollection<Catalog> Catalogs { get; set; }
     }

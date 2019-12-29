@@ -7,7 +7,7 @@ namespace CarCatalog.Database.Entities
 {
     public class Engine : Entity
     {
-        public int Code { get; set; }
+        public string Code { get; set; }
         public float Capacity { get; set; }
         public int HorsePower { get; set; }
         public int KiloWat { get; set; }

@@ -1,5 +1,4 @@
-﻿using CarCatalog.Service.Repositories.Base.Business.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
@@ -11,7 +10,8 @@ namespace CarCatalog.Service.Repositories.Interfaces.Business
     {
         Task<IEnumerable<T>> Get();
         Task<T> Get(Guid id);
-        Task<Guid> Create(U request);
+        Task<IEnumerable<T>> Get(Expression<Func<U, bool>> expression);
+        Task<T> Create(U request);
         Task Update(U request);
         Task Delete(Guid id);
     }

@@ -8,7 +8,7 @@ namespace CarCatalog.Service.Messages.Request
 {
     public class UserRequest : BusinessObject
     {
-        public string UserName { get; set; }
+        public string Name { get; set; }
         public string Avatar { get; set; }
     }
 
@@ -16,7 +16,7 @@ namespace CarCatalog.Service.Messages.Request
     {
         public UserRequestValidator()
         {
-            RuleFor(x => x.UserName).NotEmpty().Length(3, 20);
+            RuleFor(x => x.Name).NotEmpty().Length(3, 20);
         }
     }
 }
