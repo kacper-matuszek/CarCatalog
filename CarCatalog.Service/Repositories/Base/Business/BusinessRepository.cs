@@ -19,13 +19,13 @@ namespace CarCatalog.Service.Repositories.Base.Business
         where Context : DbContext
     {
         private const string CreateObject = "Create";
-        private IServiceProvider _serviceProvider;
         private RepositoryBase<C, Context> _repository;
         private readonly IMapper _mapper;
         
-        protected BusinessRepository(Context context)
+        protected BusinessRepository(Context context, IMapper mapper)
         {
-            _repository = (CommonRepository<C, Context>)_serviceProvider.GetService(typeof(CommonRepository<C, Context>));
+            _mapper = mapper;
+            _repository = new CommonRepository<C, Context>(context);
         }
 
         public virtual async Task<Rp> Insert(Rq request)
@@ -43,7 +43,7 @@ namespace CarCatalog.Service.Repositories.Base.Business
 
         public virtual async Task<IEnumerable<Rp>> Get()
         {
-            var businessObjects = _mapper.Map<IEnumerable<Rp>>(await _repository.Get());
+            var businessObjects = _mapper.Map<IEnumerable<C>, IEnumerable<Rp>>(await _repository.Get());
              return await Task.FromResult(businessObjects);
         }
 

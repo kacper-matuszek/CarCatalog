@@ -17,9 +17,11 @@ namespace CarCatalog.WebAPI.Controllers
     [ApiController]
     public class EngineController : BusinessBaseController<Engine, EngineRepository, EngineResponse, EngineRequest>
     {
+        private readonly EngineRepository _repository;
         public EngineController(EngineRepository repository)
             : base(repository)
         {
+            _repository = repository;
         }
 
         [HttpGet("fuel/")]

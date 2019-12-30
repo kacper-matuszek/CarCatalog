@@ -10,7 +10,7 @@ namespace CarCatalog.Service.Messages.Request
 {
     public class EngineRequest : BusinessObject
     {
-        public int Code { get; set; }
+        public string Code { get; set; }
         public float Capacity { get; set; }
         public int HorsePower { get; set; }
         public int KiloWat { get; set; }

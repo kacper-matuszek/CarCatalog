@@ -20,9 +20,11 @@ namespace CarCatalog.WebAPI.Controllers
     [ApiController]
     public class CatalogController : BusinessBaseController<Catalog, CatalogRepository, CatalogResponse, CatalogRequest>
     {
+        private readonly CatalogRepository _repository;
         public CatalogController(CatalogRepository repository)
             : base(repository)
         {
+            _repository = repository;
         }
 
         [HttpGet("{userId:guid}")]

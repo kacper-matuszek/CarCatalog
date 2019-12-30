@@ -15,7 +15,8 @@ namespace CarCatalog.Service.Repositories.Models
 {
     public class UserRepository : BusinessRepository<User, CarCatalogContext, UserResponse, UserRequest>
     {
-        public UserRepository(CarCatalogContext context) : base(context)
+        public UserRepository(CarCatalogContext context, IMapper mapper) 
+            : base(context, mapper)
         {
         }
     }

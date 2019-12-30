@@ -18,9 +18,11 @@ namespace CarCatalog.WebAPI.Controllers
     [ApiController]
     public class CategoryController : BusinessBaseController<Category, CategoryRepository, CategoryResponse, CategoryRequest>
     {
+        private readonly CategoryRepository _repository;
         public CategoryController(CategoryRepository repository)
             : base(repository)
         {
+            _repository = repository;
         }
 
         [HttpGet("details/")]

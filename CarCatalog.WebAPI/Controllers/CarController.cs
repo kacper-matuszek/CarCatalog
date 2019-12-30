@@ -18,10 +18,11 @@ namespace CarCatalog.WebAPI.Controllers
     [ApiController]
     public class CarController : BusinessBaseController<Car, CarRepository, CarResponse, CarRequest>
     {
-
+        private readonly CarRepository _repository;
         public CarController(CarRepository repository)
             : base(repository)
         {
+            _repository = repository;
         }
 
         [HttpGet("vin/")]
@@ -65,7 +66,7 @@ namespace CarCatalog.WebAPI.Controllers
         {
             try
             {
-                var cars = await base.Get(c => c.Manufacturer.ToLowerInvariant() == manufacturer.ToLowerInvariant());
+                var cars = await _repository.Get(c => c.Manufacturer.ToLowerInvariant() == manufacturer.ToLowerInvariant());
 
                 if (cars == null)
                     return NotFound();
