@@ -25,7 +25,7 @@ namespace CarCatalog.WebAPI.Controllers
             _repository = repository;
         }
 
-        [HttpGet("vin/")]
+        [HttpGet("vin/{vin}")]
         public async Task<ActionResult<CarResponse>> GetByVIN(string vin)
         {
             try
@@ -37,9 +37,9 @@ namespace CarCatalog.WebAPI.Controllers
 
                 return Ok(response);
             }
-            catch(Exception)
+            catch(Exception e)
             {
-                return NotFound();
+                return NotFound(e);
             }
         }
 
@@ -78,11 +78,23 @@ namespace CarCatalog.WebAPI.Controllers
                 return NotFound();
             }
         }
-        //TODO
-        //[HttpPost("")]
-        //public async Task<ActionResult> Post(Guid catalogId, [CustomizeValidator(Interceptor = typeof(PostMessageInterceptor))][FromBody] CarRequest car)
-        //{
 
-        //}
+        [HttpGet("catalog/{catalogId:guid}")]
+        public async Task<ActionResult<IEnumerable<CarResponse>>> GetByCatalog(Guid catalogId)
+        {
+            try
+            {
+                var cars = await _repository.Get(c => c.Catalog.Value == catalogId);
+
+                if (cars == null)
+                    return NotFound();
+
+                return Ok(cars);
+            }
+            catch(Exception)
+            {
+                return NotFound();
+            }
+        }
     }
 }
