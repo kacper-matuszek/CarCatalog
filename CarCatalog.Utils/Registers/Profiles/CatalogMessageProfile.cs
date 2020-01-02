@@ -14,6 +14,11 @@ namespace CarCatalog.Utils.Registers.Profiles
         {
             CreateMap<Catalog, CatalogResponse>();
             CreateMap<CatalogRequest, Catalog>()
+                .ForMember(e => e.IsDeleted, s => s.Ignore())
+                .ForMember(e => e.CreatedDateEntity, s => s.Ignore())
+                .ForMember(e => e.UpdateDateEntity, s => s.Ignore())
+                .ForMember(e => e.UserId, s => s.Ignore())
+                .ForMember(e => e.Cars, s => s.Ignore())
                 .ForMember(e => e.Id, b => b.Condition(
                     (src, dest, srcValue, destValue, c) => !c.Options.Items.ContainsKey("Create"))); ;
         }

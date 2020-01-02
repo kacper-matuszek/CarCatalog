@@ -14,6 +14,9 @@ namespace CarCatalog.Utils.Registers.Profiles
         {
             CreateMap<Category, CategoryResponse>();
             CreateMap<CategoryRequest, Category>()
+                .ForMember(e => e.IsDeleted, s => s.Ignore())
+                .ForMember(e => e.CreatedDateEntity, s => s.Ignore())
+                .ForMember(e => e.UpdateDateEntity, s => s.Ignore())
                 .ForMember(c => c.Cars, r => r.Ignore())
                 .ForMember(e => e.Id, b => b.Condition(
                     (src, dest, srcValue, destValue, c) => !c.Options.Items.ContainsKey("Create"))); ;

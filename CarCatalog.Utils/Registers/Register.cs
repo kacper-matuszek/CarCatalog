@@ -54,13 +54,13 @@ namespace CarCatalog.Utils.Registers
         {
             var mappingConf = new MapperConfiguration(mc =>
             {
-                mc.AddProfile<CarMessageProfile>();
+                mc.AddProfile<UserMessageProfile>();
                 mc.AddProfile<CatalogMessageProfile>();
                 mc.AddProfile<CategoryMessageProfile>();
                 mc.AddProfile<EngineMessageProfile>();
-                mc.AddProfile<UserMessageProfile>();
+                mc.AddProfile<CarMessageProfile>();
             });
-
+            mappingConf.AssertConfigurationIsValid();
             IMapper mapper = mappingConf.CreateMapper();
 
             services.AddSingleton(mapper);

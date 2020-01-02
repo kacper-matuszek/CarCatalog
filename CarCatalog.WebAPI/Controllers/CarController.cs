@@ -25,7 +25,7 @@ namespace CarCatalog.WebAPI.Controllers
             _repository = repository;
         }
 
-        [HttpGet("vin/")]
+        [HttpGet("vin/{vin}")]
         public async Task<ActionResult<CarResponse>> GetByVIN(string vin)
         {
             try
@@ -37,9 +37,9 @@ namespace CarCatalog.WebAPI.Controllers
 
                 return Ok(response);
             }
-            catch(Exception)
+            catch(Exception e)
             {
-                return NotFound();
+                return NotFound(e.Message);
             }
         }
 
