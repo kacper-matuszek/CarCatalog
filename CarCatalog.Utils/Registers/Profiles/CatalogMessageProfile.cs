@@ -12,7 +12,8 @@ namespace CarCatalog.Utils.Registers.Profiles
     {
         public CatalogMessageProfile()
         {
-            CreateMap<Catalog, CatalogResponse>();
+            CreateMap<Catalog, CatalogResponse>()
+                .ReverseMap();
             CreateMap<CatalogRequest, Catalog>()
                 .ForMember(e => e.IsDeleted, s => s.Ignore())
                 .ForMember(e => e.CreatedDateEntity, s => s.Ignore())
@@ -20,7 +21,8 @@ namespace CarCatalog.Utils.Registers.Profiles
                 .ForMember(e => e.UserId, s => s.Ignore())
                 .ForMember(e => e.Cars, s => s.Ignore())
                 .ForMember(e => e.Id, b => b.Condition(
-                    (src, dest, srcValue, destValue, c) => !c.Options.Items.ContainsKey("Create"))); ;
+                    (src, dest, srcValue, destValue, c) => !c.Options.Items.ContainsKey("Create")))
+                .ReverseMap(); ;
         }
     }
 }

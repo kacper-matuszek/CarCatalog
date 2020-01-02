@@ -54,6 +54,7 @@ namespace CarCatalog.Utils.Registers
         {
             var mappingConf = new MapperConfiguration(mc =>
             {
+                mc.AddProfile<BaseMessageProfile>();
                 mc.AddProfile<UserMessageProfile>();
                 mc.AddProfile<CatalogMessageProfile>();
                 mc.AddProfile<CategoryMessageProfile>();

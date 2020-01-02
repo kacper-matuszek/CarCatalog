@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.Extensions.ExpressionMapping;
 using CarCatalog.Database.Base;
 using CarCatalog.Service.Messages.Base;
 using CarCatalog.Service.Repositories.Interfaces.Business;
@@ -56,7 +57,7 @@ namespace CarCatalog.Service.Repositories.Base.Business
 
         public virtual async Task<IEnumerable<Rp>> Get(Expression<Func<Rq, bool>> expression)
         {
-            var entityExpression = _mapper.Map<Expression<Func<C, bool>>>(expression);
+            var entityExpression = _mapper.MapExpression<Expression<Func<C, bool>>>(expression);
             var entities = await _repository.GetByCondition(entityExpression);
 
             var response = _mapper.Map<IEnumerable<Rp>>(entities);

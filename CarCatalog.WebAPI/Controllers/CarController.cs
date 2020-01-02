@@ -85,7 +85,7 @@ namespace CarCatalog.WebAPI.Controllers
         {
             try
             {
-                var cars = await _repository.Get(c => c.Catalog.Value == catalogId);
+                var cars = await _repository.Get(c => c.CatalogId.Value == catalogId);
 
                 if (cars == null)
                     return NotFound();
