@@ -39,7 +39,8 @@ namespace CarCatalog.WebAPI.Controllers
             }
             catch(Exception e)
             {
-                return NotFound(e);
+
+                return NotFound(e.Message);
             }
         }
 
