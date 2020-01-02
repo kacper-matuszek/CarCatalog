@@ -24,7 +24,7 @@ namespace CarCatalog.WebAPI.Controllers
             _repository = repository;
         }
 
-        [HttpGet("fuel/")]
+        [HttpGet("fuel/{fuel}")]
         public async Task<ActionResult<IEnumerable<EngineResponse>>> GetByFuel(string fuel)
         {
             try
@@ -36,14 +36,14 @@ namespace CarCatalog.WebAPI.Controllers
 
                 return Ok(engines.ToList());
             }
-            catch(Exception)
+            catch(Exception e)
             {
-                return NotFound();
+                return NotFound(e.Message);
             }
         }
 
-        [HttpGet("horsepower/")]
-        public async Task<ActionResult<IEnumerable<EngineResponse>>> GetByHorsePower(int horsepower, bool greater = false)
+        [HttpGet("horsepower/{horsepower}")]
+        public async Task<ActionResult<IEnumerable<EngineResponse>>> GetByHorsePower(int horsepower,[FromQuery] bool greater = false)
         {
             try
             {
@@ -59,13 +59,13 @@ namespace CarCatalog.WebAPI.Controllers
 
                 return Ok(engines.ToList());
             }
-            catch(Exception)
+            catch(Exception e)
             {
-                return NotFound();
+                return NotFound(e.Message);
             }
         }
 
-        [HttpGet("code/")]
+        [HttpGet("code/{code}")]
         public async Task<ActionResult<IEnumerable<EngineResponse>>> GetByCode(string code)
         {
             try
@@ -77,9 +77,9 @@ namespace CarCatalog.WebAPI.Controllers
 
                 return Ok(engines.ToList());
             }
-            catch(Exception)
+            catch(Exception e)
             {
-                return NotFound();
+                return NotFound(e.Message);
             }
         }
     }

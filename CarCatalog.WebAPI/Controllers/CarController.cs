@@ -44,7 +44,7 @@ namespace CarCatalog.WebAPI.Controllers
             }
         }
 
-        [HttpGet("type/")]
+        [HttpGet("type/{type}")]
         public async Task<ActionResult<IEnumerable<CarResponse>>> GetByType(string type)
         {
             try
@@ -56,13 +56,13 @@ namespace CarCatalog.WebAPI.Controllers
 
                 return Ok(cars);
             }
-            catch(Exception)
+            catch(Exception e)
             {
-                return NotFound();
+                return NotFound(e.Message);
             }
         }
 
-        [HttpGet("manufacturer/")]
+        [HttpGet("manufacturer/{manufacturer}")]
         public async Task<ActionResult<IEnumerable<CarResponse>>> GetByManufacturer(string manufacturer)
         {
             try
@@ -74,9 +74,9 @@ namespace CarCatalog.WebAPI.Controllers
 
                 return Ok(cars);
             }
-            catch(Exception)
+            catch(Exception e)
             {
-                return NotFound();
+                return NotFound(e.Message);
             }
         }
 
@@ -92,9 +92,9 @@ namespace CarCatalog.WebAPI.Controllers
 
                 return Ok(cars);
             }
-            catch(Exception)
+            catch(Exception e)
             {
-                return NotFound();
+                return NotFound(e.Message);
             }
         }
     }

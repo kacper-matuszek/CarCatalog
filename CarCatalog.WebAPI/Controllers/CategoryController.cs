@@ -25,7 +25,7 @@ namespace CarCatalog.WebAPI.Controllers
             _repository = repository;
         }
 
-        [HttpGet("details/")]
+        [HttpGet("details/{name}")]
         public async Task<ActionResult<CategoryResponse>> GetByName(string name)
         {
             try
