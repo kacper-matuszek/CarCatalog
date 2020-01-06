@@ -130,7 +130,7 @@ namespace CarCatalog.Database
                 .RuleFor(c => c.CreatedDate, s => s.Date.Recent())
                 .RuleFor(c => c.Name, s => s.Lorem.Word())
                 .Generate(2);
-            catalogs.ForEach(c => c.UserId = _users[_faker.Random.Number(_users.Count()) - 1].Id);
+            catalogs.ForEach(c => c.UserId = _users[_faker.Random.Number(_users.Count() - 1)].Id);
 
             _catalogs = SeedHelper<Catalog>(catalogs);
             

@@ -39,6 +39,10 @@ namespace CarCatalog.WebAPI
                     .UseSqlServer(Configuration.GetConnectionString("CarCatalogContext")))
                 .RegisterAutomapper()
                 .RegisterRepositories()
+                .AddCors(opt => opt.AddPolicy("ApiCorsPolicy", builder =>
+                {
+                    builder.WithOrigins("http://localhost:52761").AllowAnyMethod().AllowAnyHeader();
+                }))
                 .AddMvc()
                 .RegisterValidators();
         }
@@ -56,6 +60,12 @@ namespace CarCatalog.WebAPI
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                );
 
             app.UseEndpoints(endpoints =>
             {
