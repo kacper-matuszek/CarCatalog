@@ -1,23 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using CarCatalog.Database;
-using CarCatalog.Database.Entities;
-using CarCatalog.Service.Messages.Request;
-using CarCatalog.Service.Repositories.Interfaces;
-using CarCatalog.Service.Repositories.Models;
 using CarCatalog.Utils.Registers;
-using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+
 
 namespace CarCatalog.WebAPI
 {
@@ -44,6 +33,8 @@ namespace CarCatalog.WebAPI
                     builder.WithOrigins("http://localhost:52761").AllowAnyMethod().AllowAnyHeader();
                 }))
                 .AddMvc()
+                .AddNewtonsoftJson(options => 
+                    options.UseMemberCasing())
                 .RegisterValidators();
         }
 

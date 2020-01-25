@@ -2,8 +2,8 @@
 using CarCatalog.Service.Messages.Base;
 using FluentValidation;
 using System;
-using System.Collections.Generic;
-using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace CarCatalog.Service.Messages.Request
 {
@@ -14,8 +14,13 @@ namespace CarCatalog.Service.Messages.Request
         public string Model { get; set; }
         public int Mileage { get; set; }
         public string Color { get; set; }
+        [JsonConverter(typeof(StringEnumConverter))]
         public DriveType DriveType { get; set; }
+
+        [JsonConverter(typeof(StringEnumConverter))]
         public GearBox GearBox { get; set; }
+
+        [JsonConverter(typeof(StringEnumConverter))]
         public Database.Entities.Type Type { get; set; }
         public int AmountDoors { get; set; }
         public int AmountSeats { get; set; }
@@ -35,6 +40,9 @@ namespace CarCatalog.Service.Messages.Request
             RuleFor(c => c.Model).NotEmpty();
             RuleFor(c => c.Engine).SetValidator(new EngineRequestValidator());
             RuleFor(c => c.CategoryId).NotNull().NotEmpty();
+            RuleFor(c => c.GearBox).IsInEnum();
+            RuleFor(c => c.DriveType).IsInEnum();
+            RuleFor(c => c.Type).IsInEnum();
         }
     }
 }

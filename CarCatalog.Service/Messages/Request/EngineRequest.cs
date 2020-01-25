@@ -1,10 +1,8 @@
 ﻿using CarCatalog.Database.Entities;
 using CarCatalog.Service.Messages.Base;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace CarCatalog.Service.Messages.Request
 {
@@ -14,7 +12,7 @@ namespace CarCatalog.Service.Messages.Request
         public float Capacity { get; set; }
         public int HorsePower { get; set; }
         public int KiloWat { get; set; }
-        [JsonConverter(typeof(JsonStringEnumConverter))]
+        [JsonConverter(typeof(StringEnumConverter))]
         public EngineFuel Fuel { get; set; }
         public int AmountCylinders { get; set; }
         public bool Turbo { get; set; }
@@ -27,7 +25,7 @@ namespace CarCatalog.Service.Messages.Request
             RuleFor(c => c.Code).NotNull();
             RuleFor(c => c.HorsePower).NotEmpty();
             RuleFor(c => c.KiloWat).NotEmpty();
-            RuleFor(c => c.Fuel).NotEmpty();
+            RuleFor(c => c.Fuel).IsInEnum();
             RuleFor(c => c.Turbo).NotEmpty();
             RuleFor(c => c.AmountCylinders).NotEmpty();
         }

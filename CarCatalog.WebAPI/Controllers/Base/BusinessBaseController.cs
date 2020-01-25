@@ -60,10 +60,12 @@ namespace CarCatalog.WebAPI.Controllers.Base
             {
                 //TODO Refactor
                 var bussinessObject = await _repository.Insert(categoryRequest);
+
                 var responseProperties = bussinessObject.GetType()
                     .GetProperties()
-                    .Where(x => x.PropertyType.IsSubclassOf(typeof(BusinessObject)) == true)
-                    .Select(x => (BusinessObject)x.GetValue(bussinessObject));
+                    .Where(x => x.PropertyType.IsSubclassOf(typeof(BusinessObject)))
+                    .Select(x => (BusinessObject)x.GetValue(bussinessObject))
+                    .Where(x => x != null).ToList();
 
                 var responseBusiness = responseProperties.Select(x => new KeyValuePair<string, Guid>(x.GetType().Name.Replace("Response", "Id"), x.Id));
 
